@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ./partials/header.ejs %>
+</head>
+<body>
+  <% include ./partials/navbar.ejs %>
+  <div class='container'>
+    <div class='row text-center'>
+      <h2>Data on your Potential Trip to <%= result.destination %></h2>
+    </div>
+    <div class='row text-center'>
+      <h3 class='text-center'>Weather In Next 24 Hours:</h3>
+      <div class='well col-xs-6 col-sm-3'>
+        <h4>Chance of Snow: <b><%= result.chanceOfSnow%>%</b></h4>
+      </div>
+      <div class='well col-xs-6 col-sm-4 col-sm-offset-1'>
+        <h4>Temperature Range: <b><%= result.minTemp%> - <%= result.maxTemp%> Fº</b></h4>
+      </div>
+      <div class='well col-xs-6 col-sm-3 col-sm-offset-1'>
+        <h4>Snowfall: <b><%= result.snowFallCM%> CM</b></h4>
+      </div>
+    </div>
+    <div class='row'>
+      <h3 class='text-center'>Traffic for your trip:</h3>
+      <div class='well col-xs-6 col-sm-3'>
+        <h4>Normal Travel Time: <b><%= result.travel_time%></b></h4>
+      </div>
+      <div class='well col-xs-6 col-sm-4 col-sm-offset-1'>
+        <h4>Travel Time w/ Traffic: <b><%= result.duration_in_traffic%></b></h4>
+      </div>
+      <div class='well col-xs-6 col-sm-3 col-sm-offset-1'>
+        <h4>Current Accidents: <% if (result.warnings.length > 0) {%>
+            <%= results.warning.join(', ')
+%>
+          <%} else {%>
+            No Current Warnings
+          <%}%>
+        </h4>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

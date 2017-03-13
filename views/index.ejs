@@ -1,28 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="/css/bootstrap.min.css">
-  <script src="/js/jquery.min.js"></script>
-  <script src="/js/bootstrap.min.js"></script>
-  <meta charset="UTF-8">
-  <title>Should I go Skiing?</title>
+  <% include ./partials/header.ejs %>
 </head>
 <body>
-  
+  <% include ./partials/navbar.ejs %>
+  <div class='container-fluid main'>
+    <div class='row text-center'>
 
-  <ul class="quotes">
-  <% for(var i=0; i<quotes.length; i++) {%>
-    <li class="quote">
-      <span><%= quotes[i].name %></span>
-      <span><%= quotes[i].quote %></span>
-    </li>
-  <% } %>
-  </ul>
+      <div class='col-xs-12 col-sm-4 col-sm-offset-4'>   
+        <h4>Where would you want to go?</h4>
+        <form action="/results" method="POST">
+          <select class="form-control" name='destination'>
+           <option disabled selected>Select your Colorado Resort</option>
+            <% for(var i=0; i<mountains.length; i++) {%>
+              <option value="<%= mountains[i].city %>,<%= mountains[i].state %>"><%=mountains[i].name %></option>
+            <%}%>
+<!--             <option>Arapahoe Basin</option>
+            <option>Aspen</option>
+            <option>Beaver Creek</option>
+            <option>Breckenridge</option>
+            <option>Copper Mountain</option>
+            <option>Crested Butte</option>
+            <option>Eldora</option>
+            <option>Granby Ranch</option>
+            <option>Keystone</option>
+            <option>Loveland</option>
+            <option>Monarch Mountain</option>
+            <option>Purgatory</option>
+            <option>Steamboat</option>
+            <option>Telluride</option>
+            <option>Vail</option>
+            <option>Winter Park</option> -->
 
-  <form action="/quotes" method="POST">
-    <input type="text" placeholder="name" name="name">
-    <input type="text" placeholder="quote" name="quote">
-    <button class='btn btn-success' type="submit">Submit</button>
-  </form>
+          </select>
+          <h4>Where are you coming from?</h4>
+          <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" name="city" class="form-control" id="city" placeholder="City">
+          </div>
+          <div class="form-group">
+            <label for="state">State</label>
+            <input  id='state' name='state' type="text" class="form-control"  value="CO" >
+          </div>
+          <div class="form-group">
+            <label for="zip">Zip</label>
+            <input  name='zip' id='zip' type="text" class="form-control"  placeholder="Zipcode" >
+          </div>
+          <h4>What time are you leaving today?</h4>
+          <div class="form-group">
+            <label for="time">Time</label>
+            <input  name='time' id='time' type="time" class="form-control" >
+          </div>
+          <button class='btn btn-block btn-danger btn-lg' type='submit'>Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
