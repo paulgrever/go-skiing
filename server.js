@@ -35,21 +35,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/results/:_id', (req, res) => {
-  // db.collection('quotes').save(req.body, (err, result) => {
-  //   if (err) return console.log(err);
-
-  //   console.log('saved to database');
   const id = req.params._id;
   console.log(id);
   db.collection('go').findOne({_id: ObjectId(id)}, (err, result) => {
-
-  // db.collection('go').find({_id: ObjectId(id)}).toArray((err, result) => {
-    console.log('result', result)
     res.render('results.ejs', {result: result});
   });
-
-    
-  // });
 });
 
 
