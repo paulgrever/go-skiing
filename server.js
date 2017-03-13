@@ -81,18 +81,23 @@ app.post('/results', (req, res) => {
       }, function (err, response, body) {
         if(err) return console.log('Error', err);
         const trip = JSON.parse(body);
-        req.body.warnings = [];
-        if (trip.routes[0] && trip.routes[0].warnings ) {
-          req.body.warnings = trip.routes[0].warnings;
+        try {
+          req.body.warnings = [];
+          if (trip.routes[0] && trip.routes[0].warnings ) {
+            req.body.warnings = trip.routes[0].warnings;
+          }
+          if (!trip.routes[0] ||  !trip.routes[0].legs) {
+            return console.log('Error', trip.routes[0].legs);
+          }
+          req.body.travel_time = trip.routes[0].legs[0].duration.text;
+          const anyTraffic = trip.routes[0].legs[0];
+          req.body.duration_in_traffic = "No Traffic Delays";
+          if (anyTraffic.duration_in_traffic) {
+            req.body.duration_in_traffic = anyTraffic.duration_in_traffic.text;
+          }
         }
-        if (!trip.routes[0].legs ||  !trip.routes[0].legs[0]) {
-          return console.log('Error', trip.routes[0].legs);
-        }
-        req.body.travel_time = trip.routes[0].legs[0].duration.text;
-        const anyTraffic = trip.routes[0].legs[0];
-        req.body.duration_in_traffic = "No Traffic Delays";
-        if (anyTraffic.duration_in_traffic) {
-          req.body.duration_in_traffic = anyTraffic.duration_in_traffic.text;
+        catch(e) {
+          console.log('ERROR',e);
         }
         db.collection('go').save(req.body, (err, result) => {
           if (err) return console.log(err);
