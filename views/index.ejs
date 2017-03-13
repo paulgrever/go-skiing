@@ -11,7 +11,7 @@
       <div class='col-xs-12 col-sm-4 col-sm-offset-4'>   
         <h4>Where would you want to go?</h4>
         <form action="/results" method="POST">
-          <select class="form-control" name='destination'>
+          <select id='mountain-select' class="form-control" name='destination'>
            <option disabled selected>Select your Colorado Resort</option>
             <% for(var i=0; i<mountains.length; i++) {%>
               <option value="<%= mountains[i].city %>,<%= mountains[i].state %>"><%=mountains[i].name %></option>
@@ -36,21 +36,21 @@
           </select>
           <h4>Where are you coming from?</h4>
           <div class="form-group">
-            <label for="city">City</label>
-            <input type="text" name="city" class="form-control" id="city" placeholder="City">
+            <!-- <label for="city">City</label> -->
+            <input required type="text" name="city" class="form-control" id="city" placeholder="City">
           </div>
           <div class="form-group">
-            <label for="state">State</label>
-            <input  id='state' name='state' type="text" class="form-control"  value="CO" >
+            <!-- <label for="state">State</label> -->
+            <input required  id='state' name='state' type="text" class="form-control"  value="CO" >
           </div>
           <div class="form-group">
-            <label for="zip">Zip</label>
-            <input  name='zip' id='zip' type="text" class="form-control"  placeholder="Zipcode" >
+            <!-- <label for="zip">Zip</label> -->
+            <input required name='zip' id='zip' type="text" class="form-control"  placeholder="Zipcode" >
           </div>
           <h4>What time are you leaving today?</h4>
           <div class="form-group">
-            <label for="time">Time</label>
-            <input  name='time' id='time' type="time" class="form-control" >
+            <!-- <label for="time">Time</label> -->
+            <input required  name='time' id='time' type="time" class="form-control" >
           </div>
           <button class='btn btn-block btn-danger btn-lg' type='submit'>Submit</button>
         </form>

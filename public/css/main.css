@@ -12,6 +12,20 @@ nav.navbar a {
   color: white;
 }
 
+.destination {
+  color: black;
+  font-weight: bold;
+}
+
+h5, h3, .headline h2{
+  color: white;
+  padding-top: 15px;
+}
+
+.go-home {
+  padding: 10% 0%;
+}
+
 body h4 {
   color: white; 
   font: bold 24px/45px Helvetica, Sans-Serif; 
@@ -20,6 +34,14 @@ body h4 {
   background: rgba(0, 0, 0, 0.7);
   padding: 10px; 
 
+}
+
+form #mountain-select {
+  margin: 20px 0px;
+}
+
+form .form-group  {
+  padding: 10px 0px;
 }
 
 
