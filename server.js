@@ -54,7 +54,11 @@ app.post('/results', (req, res) => {
         num_of_days: 1
     }}, function(err, response, body) {
       if(err) return console.log('ERROR', err);
-      const weather = JSON.parse(body).data.weather[0];
+      const bodyData = JSON.parse(body).data;
+      if (bodyData.error) {
+        return console.log('Error', bodyData.error);
+      }
+      const weather = bodyData.weather[0];
       req.body.chanceOfSnow = weather.chanceofsnow;
       req.body.minTemp = weather.top[0].mintempF;
       req.body.maxTemp = weather.top[0].maxtempF;
