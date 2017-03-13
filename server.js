@@ -21,7 +21,7 @@ let db;
 MongoClient.connect("mongodb://" + process.env.Snowvation_Username + ":" + process.env.Snowvation_Password  + "@ds129010.mlab.com:29010/playground", (err, database) => {
   if (err) return console.log(err);
     db = database;
-    app.listen(3000, () => {
+    app.listen(process.env.PORT || 3000, () => {
       console.log('listening on 3000');
     });
 });
