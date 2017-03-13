@@ -77,7 +77,11 @@ app.post('/results', (req, res) => {
       }, function (err, response, body) {
         if(err) return console.log('Error', err);
         const trip = JSON.parse(body);
-        req.body.warnings = trip.routes[0].warnings;
+        req.body.warnings = [];
+        if (trip.routes[0] && trip.routes[0].warnings ) {
+          req.body.warnings = trip.routes[0].warnings;
+        }
+        
         req.body.travel_time = trip.routes[0].legs[0].duration.text;
         const anyTraffic = trip.routes[0].legs[0];
         req.body.duration_in_traffic = "No Traffic Delays";
