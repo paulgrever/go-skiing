@@ -54,20 +54,26 @@ app.post('/results', (req, res) => {
         num_of_days: 1
     }}, function(err, response, body) {
       if(err) return console.log('ERROR', err);
-      const bodyData = JSON.parse(body).data;
-      if (bodyData.error) {
-        return console.log('Error', bodyData.error);
+      try {
+        const bodyData = JSON.parse(body).data;
+        if (bodyData.error) {
+          return console.log('Error', bodyData.error);
+        }
+        const weather = bodyData.weather[0];
+        req.body.chanceOfSnow = weather.chanceofsnow;
+        req.body.minTemp = weather.top[0].mintempF;
+        req.body.maxTemp = weather.top[0].maxtempF;
+        req.body.snowFallCM = weather.totalSnowfall_cm;
+        
       }
-      const weather = bodyData.weather[0];
-      req.body.chanceOfSnow = weather.chanceofsnow;
-      req.body.minTemp = weather.top[0].mintempF;
-      req.body.maxTemp = weather.top[0].maxtempF;
-      req.body.snowFallCM = weather.totalSnowfall_cm;
-      const hour = parseInt(req.body.time, 10) + 1;
-      const unixTime = moment().hour(hour).unix();
-      const rawOrigin = req.body.city + ',' + req.body.state + ',' + req.body.zip; 
-      const formattedOrigin = rawOrigin.replace(' ', '+');
+      catch(e) {
+          console.log('ERROR',e);
+        }
 
+        const hour = parseInt(req.body.time, 10) + 1;
+        const unixTime = moment().hour(hour).unix();
+        const rawOrigin = req.body.city + ',' + req.body.state + ',' + req.body.zip; 
+        const formattedOrigin = rawOrigin.replace(' ', '+');
       request({
         url: "https://maps.googleapis.com/maps/api/directions/json",
         method: "GET",
